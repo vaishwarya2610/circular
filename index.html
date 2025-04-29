@@ -1,0 +1,121 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Fillet Weld Strength Calculator - Circular Weld</title>
+  <style>
+    body {
+      font-family: "Segoe UI", sans-serif;
+      background-color: #f3f4f6;
+      margin: 0;
+      padding: 30px;
+      display: flex;
+      justify-content: center;
+    }
+    .container {
+      background: white;
+      padding: 30px;
+      border-radius: 10px;
+      box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+      max-width: 600px;
+      width: 100%;
+    }
+    h2 {
+      text-align: center;
+      color: #2c3e50;
+      margin-bottom: 20px;
+    }
+    input {
+      width: 100%;
+      padding: 10px;
+      margin: 10px 0 15px;
+      border-radius: 6px;
+      border: 1px solid #ccc;
+      font-size: 16px;
+    }
+    button {
+      width: 100%;
+      padding: 12px;
+      background-color: #3498db;
+      border: none;
+      color: white;
+      font-size: 16px;
+      border-radius: 6px;
+      cursor: pointer;
+      margin-bottom: 15px;
+    }
+    button:hover {
+      background-color: #2980b9;
+    }
+    .result {
+      margin-top: 20px;
+      padding: 20px;
+      border-radius: 10px;
+      font-size: 15px;
+      line-height: 1.8;
+    }
+    .safe {
+      background-color: #e6f4ea;
+      color: #256029;
+      border-left: 5px solid #27ae60;
+    }
+    .unsafe {
+      background-color: #fdecea;
+      color: #c0392b;
+      border-left: 5px solid #e74c3c;
+    }
+    img {
+      max-width: 100%;
+      margin: 15px 0;
+      border-radius: 10px;
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <h2>Fillet Weld Strength Calculator - Circular Weld</h2>
+
+    <button onclick="window.location.href='index.html'">Go to Straight Weld Calculator</button>
+
+    <img src="image/image2.jpg" alt="Circular Weld">
+    
+    <label>Weld Size (s) in mm:</label>
+    <input type="number" id="s_circular">
+
+    <label>Diameter (d) in mm:</label>
+    <input type="number" id="d_circular">
+
+    <label>Shear Strength of Weld Material (MPa):</label>
+    <input type="number" id="tau_circular">
+
+    <label>Applied Load (N):</label>
+    <input type="number" id="F_circular">
+
+    <button onclick="calcCircular()">Calculate</button>
+    <div id="result_circular" class="result"></div>
+  </div>
+
+  <script>
+    function calcCircular() {
+      const s = parseFloat(document.getElementById("s_circular").value);
+      const d = parseFloat(document.getElementById("d_circular").value);
+      const tau = parseFloat(document.getElementById("tau_circular").value);
+      const F = parseFloat(document.getElementById("F_circular").value);
+      const output = document.getElementById("result_circular");
+
+      if (isNaN(s) || isNaN(d) || isNaN(tau) || isNaN(F)) {
+        output.innerHTML = "❌ Please enter all values correctly.";
+        output.className = "result unsafe";
+        return;
+      }
+
+      const t = 0.707 * s;
+      const length = Math.PI * d;
+      const A = t * length;
+      const stress = F / A;
+      const strength = tau * A;
+      const fos
+
+
+      
