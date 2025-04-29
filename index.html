@@ -86,10 +86,10 @@
     <label>Diameter (d) in mm:</label>
     <input type="number" id="d_circular">
 
-    <label>Shear Strength of Weld Material (MPa):</label>
+    <label>Shear Strength of Weld Material (τ) in MPa:</label>
     <input type="number" id="tau_circular">
 
-    <label>Applied Load (N):</label>
+    <label>Applied Load (F) in N:</label>
     <input type="number" id="F_circular">
 
     <button onclick="calcCircular()">Calculate</button>
@@ -111,11 +111,28 @@
       }
 
       const t = 0.707 * s;
-      const length = Math.PI * d;
-      const A = t * length;
+      const l = Math.PI * d; // circumference
+      const A = t * l;
       const stress = F / A;
       const strength = tau * A;
-      const fos
+      const fos = strength / F;
+      const isSafe = fos > 1;
 
+      output.className = `result ${isSafe ? "safe" : "unsafe"}`;
+      output.innerHTML = `
+        <strong>Throat Thickness (t):</strong> ${t.toFixed(2)} mm<br>
+        <strong>Circumference (Weld Length, l):</strong> ${l.toFixed(2)} mm<br>
+        <strong>Weld Area (A):</strong> ${A.toFixed(2)} mm²<br>
+        <strong>Shear Stress (F/A):</strong> ${stress.toFixed(2)} MPa<br>
+        <strong>Strength of Weld (τ × A):</strong> ${strength.toFixed(2)} N<br>
+        <strong>Factor of Safety (FoS):</strong> ${fos.toFixed(2)}<br><br>
+        ${isSafe 
+          ? "✅ <strong>FoS > 1 — Safe!</strong>" 
+          : "⚠ <strong>FoS < 1 — Not safe! Increase weld size or material strength.</strong>"}
+      `;
+    }
+  </script>
+</body>
+</html>
 
       
